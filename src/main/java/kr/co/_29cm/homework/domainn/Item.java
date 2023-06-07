@@ -14,7 +14,7 @@ import java.util.Objects;
 @ToString
 @Table
 @Entity
-public class Items extends AuditingFields {
+public class Item extends AuditingFields {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 상품id
@@ -29,24 +29,24 @@ public class Items extends AuditingFields {
     @Column(nullable = false)
     private int quantity; // 수량
 
-    protected Items() {
+    protected Item() {
     }
 
-    private Items(String name, int price, int quantity) {
+    private Item(String name, int price, int quantity) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
     }
 
-    public static Items of(String name, int price, int quantity) {
-        return new Items(name, price, quantity);
+    public static Item of(String name, int price, int quantity) {
+        return new Item(name, price, quantity);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Items items)) return false;
-        return id != null && id.equals(items.id);
+        if (!(o instanceof Item item)) return false;
+        return id != null && id.equals(item.id);
     }
 
     @Override

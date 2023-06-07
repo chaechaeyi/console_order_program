@@ -1,7 +1,7 @@
 package kr.co._29cm.homework.repository;
 
 import kr.co._29cm.homework.config.JpaConfig;
-import kr.co._29cm.homework.domainn.Items;
+import kr.co._29cm.homework.domainn.Item;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Import;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * jpa 정상 동작 관련 slice test
@@ -21,12 +20,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 class JpaRepositoryTest {
 
-    private final ItemsRepository itemsRepository;
-    private final ItemsCommentRepository itemsCommentRepository;
+    private final ItemRepository itemRepository;
 
-    public JpaRepositoryTest(@Autowired ItemsRepository itemsRepository, @Autowired ItemsCommentRepository itemsCommentRepository) {
-        this.itemsRepository = itemsRepository;
-        this.itemsCommentRepository = itemsCommentRepository;
+    public JpaRepositoryTest(@Autowired ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
     }
 
     @Test
@@ -34,44 +31,44 @@ class JpaRepositoryTest {
     void givenTestData_whenSelecting_thenWorksFine(){
         // Given
         // When
-        List<Items> itemsList = itemsRepository.findAll();
+        List<Item> itemList = itemRepository.findAll();
         // Then
-        assertThat(itemsList).isNotNull().hasSize(19);
+        assertThat(itemList).isNotNull().hasSize(19);
     }
 
     @Test
     @DisplayName("insert 테스트")
     void givenTestData_whenInsert_thenWorksFine(){
         // Given
-        long previousCount = itemsRepository.count();
+        long previousCount = itemRepository.count();
         // When
-        Items savedItems = itemsRepository.save( Items.of("test", 1, 1));
+        Item savedItem = itemRepository.save( Item.of("test", 1, 1));
         // Then
-        assertThat(itemsRepository.count()).isEqualTo(previousCount+1);
+        assertThat(itemRepository.count()).isEqualTo(previousCount+1);
     }
 
     @Test
     @DisplayName("update 테스트")
     void givenTestData_whenUpdate_thenWorksFine(){
         // Given
-        Items items = itemsRepository.findById(213341L).orElseThrow();
+        Item item = itemRepository.findById(213341L).orElseThrow();
         String itemName = "테스트 상품명";
-        items.setName(itemName);
+        item.setName(itemName);
         // When
-        Items savedItems = itemsRepository.save(items);
+        Item savedItem = itemRepository.save(item);
         // Then
-        assertThat(savedItems).hasFieldOrPropertyWithValue("name", itemName);
+        assertThat(savedItem).hasFieldOrPropertyWithValue("name", itemName);
     }
 
     @Test
     @DisplayName("delete 테스트")
     void givenTestData_whenDelete_thenWorksFine(){
         // Given
-        Items items = itemsRepository.findById(213341L).orElseThrow();
-        long previousCount = itemsRepository.count();
+        Item item = itemRepository.findById(213341L).orElseThrow();
+        long previousCount = itemRepository.count();
         // When
-        itemsRepository.delete(items);
+        itemRepository.delete(item);
         // Then
-        assertThat(itemsRepository.count()).isEqualTo(previousCount-1);
+        assertThat(itemRepository.count()).isEqualTo(previousCount-1);
     }
 }

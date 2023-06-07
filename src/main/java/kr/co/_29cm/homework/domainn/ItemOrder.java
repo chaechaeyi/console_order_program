@@ -14,13 +14,13 @@ import java.util.Objects;
 @ToString
 @Table
 @Entity
-public class Orders extends AuditingFields {
+public class ItemOrder extends AuditingFields {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 주문id
     @Setter
     @ManyToOne(optional = false)
-    private Items items; // 상품id
+    private Item item; // 상품id
     @Setter
     @Column(nullable = false, length = 50)
     private String status; // 주문상태
@@ -31,25 +31,25 @@ public class Orders extends AuditingFields {
     @Column(nullable = false)
     private int orderCnt; // 주문수량
 
-    public Orders() {
+    public ItemOrder() {
     }
 
-    private Orders(Items items, String status, int totalPrice, int orderCnt) {
-        this.items = items;
+    private ItemOrder(Item item, String status, int totalPrice, int orderCnt) {
+        this.item = item;
         this.status = status;
         this.totalPrice = totalPrice;
         this.orderCnt = orderCnt;
     }
 
-    public static Orders of(Items items, String status, int totalPrice, int orderCnt) {
-        return new Orders(items, status, totalPrice, orderCnt);
+    public static ItemOrder of(Item item, String status, int totalPrice, int orderCnt) {
+        return new ItemOrder(item, status, totalPrice, orderCnt);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || !(o instanceof Orders orders)) return false;
-        return id != null && id.equals(orders.id);
+        if (o == null || !(o instanceof ItemOrder itemOrder)) return false;
+        return id != null && id.equals(itemOrder.id);
     }
 
     @Override
