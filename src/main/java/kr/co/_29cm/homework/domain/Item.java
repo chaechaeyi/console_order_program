@@ -1,4 +1,4 @@
-package kr.co._29cm.homework.domainn;
+package kr.co._29cm.homework.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.ToString;
 import java.util.Objects;
 
 /**
- * 상품 정보
+ * 상품 정보 entity
  */
 @Getter
 @ToString
@@ -16,7 +16,7 @@ import java.util.Objects;
 @Entity
 public class Item extends AuditingFields {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id; // 상품id
 
     @Setter

@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.util.Optional;
 
+/**
+ * jpa 작성자, 수정자에 자동 데이터 삽입 설정
+ */
 @EnableJpaAuditing
 @Configuration
 public class JpaConfig {
