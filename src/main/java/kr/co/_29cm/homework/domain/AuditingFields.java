@@ -1,5 +1,5 @@
 
-package kr.co._29cm.homework.domainn;
+package kr.co._29cm.homework.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -15,6 +15,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
+/**
+ * 공통 필드 정의
+ */
 @Getter
 @ToString
 @EntityListeners(AuditingEntityListener.class)
