@@ -21,9 +21,18 @@ https://github.com/users/chaechaeyi/projects/3/views/4
 ### 이용권 만료
 ```mermaid
 sequenceDiagram
-    participant Batch
-    participant DB
-    Batch->>DB: 사용자별 이용권 조회
+    actor User
+    participant Item
+    participant Order
+    participant OrderItem
+    User->>Item: operation - o, order
+    activate Item
+    Item->>User: item list
+    User->>Item: input 상품 id
+    Item-->>User: 상품 id valid & 상품 존재여부 확인
+    User->>Item: input 상품 수량
+    User->>DB: operation - q
+    User->>DB: 사용자별 이용권 조회
     activate DB
     DB->>Batch: 사용자별 이용권 응답
     deactivate DB
