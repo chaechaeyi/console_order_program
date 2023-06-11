@@ -30,7 +30,7 @@ sequenceDiagram
     Item->>User: item list
     
     User->>Item: input 상품 id
-    Item-->>User: 상품 존재여부 확인
+    Item->>User: 상품 존재여부 확인
     Note over User: input 상품 수량 입력
     User->>Order: space bar+enter(주문실행)
     
