@@ -75,6 +75,7 @@ class OrderConcurrencyTest {
         //then
         // todo 퇴사 이후 jpa를 공부해서 이번 과제를 기회로 사용하였는데 이 부분에 대한 고민이 더 필요할 것 같습니다.
         // isolation = Isolation.SERIALIZABLE 를 사용하여 처리 해 둔 상태 입니다.
+        // db level lock의 경우  dead lock이 발생하기 때문에 redis 를 사용해서 동시성 제어 하는 방향으로 프로젝트 업그레이드 예정입니다.
         List<Order> orders = orderRepository.findAll();
         assertNotEquals(orders.size(), testThreadPoolSize);
 
