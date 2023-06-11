@@ -1,4 +1,4 @@
-insert into item (id, name, price, quantity, reg_at, reg_by, mod_at, mod_by) values
+insert into item (item_id, name, price, stock_quantity, reg_at, reg_by, mod_at, mod_by) values
 (768848, '[STANLEY] GO CERAMIVAC 진공 텀블러/보틀 3종', 21000, 45, now(), '이채경', now(), '이채경' ),
 (748943, '디오디너리 데일리 세트 (Daily set)', 19000, 89, now(), '이채경', now(), '이채경' ),
 (779989, '버드와이저 HOME DJing 굿즈 세트', 35000, 43, now(), '이채경', now(), '이채경'),

@@ -1,14 +1,13 @@
 package kr.co._29cm.homework.domain;
 
 import jakarta.persistence.*;
-import kr.co._29cm.homework.domain.costant.OrderStatus;
+import kr.co._29cm.homework.constant.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * 주문 정보 etity
@@ -19,7 +18,8 @@ import java.util.Objects;
 @Entity
 public class Order extends AuditingFields {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    @Column(name = "order_id")
     private Long id; // 주문id
     @Setter
     @Enumerated(EnumType.STRING)
@@ -31,36 +31,32 @@ public class Order extends AuditingFields {
     @Column(nullable = false)
     private int deliveryPrice; // 배송비
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @Setter
+    @Column(nullable = false)
+    private int payPrice; // 배송비
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     public Order() {
     }
 
-    private Order(OrderStatus status, int totalPrice, int deliveryPrice) {
-        this.status = status;
-        this.totalPrice = totalPrice;
-        this.deliveryPrice = deliveryPrice;
-    }
-
-    public static Order of(OrderStatus status, int totalPrice) {
-        return new Order(status, totalPrice, calculateDeleveryPrice(totalPrice));
-    }
     public void addOrderItem(OrderItem orderItem){
         orderItems.add(orderItem);
         orderItem.setOrder(this);
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || !(o instanceof Order order)) return false;
-        return id != null && id.equals(order.id);
+    private Order(OrderStatus status, int totalPrice, int deliveryPrice,  List<OrderItem> orderItems) {
+        this.status = status;
+        this.totalPrice = totalPrice;
+        this.deliveryPrice = deliveryPrice;
+        this.payPrice = totalPrice + deliveryPrice;
+        for(OrderItem orderItem : orderItems){
+            this.addOrderItem(orderItem);
+        }
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public static Order of(OrderStatus status, List<OrderItem> orderItems) {
+        int totalPrice = orderItems.stream().mapToInt(OrderItem::getPrice).sum();
+        return new Order(status, totalPrice, calculateDeleveryPrice(totalPrice), orderItems);
     }
 
     /**

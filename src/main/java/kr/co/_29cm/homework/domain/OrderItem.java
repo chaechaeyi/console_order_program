@@ -15,8 +15,8 @@ import lombok.ToString;
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_item_id")
     private Long id; // 주문 상세  id
-
     @Setter
     @ManyToOne(optional = false)
     @JoinColumn(name="order_id")
@@ -25,27 +25,26 @@ public class OrderItem {
     @ManyToOne(optional = false)
     @JoinColumn(name="item_id")
     private Item item; // 상품id
-    
-    @Setter
-    @Column(nullable = false)
-    private int price; // 상품 주문 가격
 
     @Setter
     @Column(nullable = false)
-    private int count; // 상품 주문수량
+    private int price; // 상품 가격
+    @Setter
+    @Column(nullable = false)
+    private int orderQuantity; // 상품 주문수량
 
     public OrderItem() {
     }
 
-    private OrderItem(Order order, Item item, int price, int count) {
-        this.order = order;
+    private OrderItem(Item item, int price, int orderQuantity) {
         this.item = item;
         this.price = price;
-        this.count = count;
+        this.orderQuantity = orderQuantity;
     }
 
-    public static OrderItem of(Order order, Item item, int price, int count) {
-        return new OrderItem(order, item, price, count);
+    public static OrderItem createOrderItem(Item item, int orderQuantity) {
+        item.reduceItemStockQuantity(orderQuantity);
+        return new OrderItem(item, item.getPrice(), orderQuantity);
     }
 
 }
