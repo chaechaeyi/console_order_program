@@ -25,16 +25,17 @@ sequenceDiagram
     participant Item
     participant Order
     participant OrderItem
-    User->>Item: operation - o, order
+    User->>Item: operation - o, order(주문시작:상품리스트조회)
     activate Item
     Item->>User: item list
     User->>Item: input 상품 id
-    Item-->>User: 상품 id valid & 상품 존재여부 확인
-    User->>Item: input 상품 수량
-    User->>DB: operation - q
-    User->>DB: 사용자별 이용권 조회
-    activate DB
-    DB->>Batch: 사용자별 이용권 응답
-    deactivate DB
-    Batch->>DB: 이용권 만료 상태 변경
+    Item-->>User: 상품id valid & 상품 존재여부 확인
+    User: input 상품 수량 & 상품수량 valid
+    User->>Order: space bar+enter(주문실행)
+    Order->>OrderItem: 주문 상품 정보 저장
+    OrderItem->>Item: 주문 상품 재고 차감
+    Note over OrderItem,Item: 재고 부족 시 SoldOutException 발생(오류 발생 시 처음부터 다시 시작)  
+    Item->>User: 주문 상품 및 결재 정보 제공
+    User: 고객님 주문 감사합니다.
+    
 ```
