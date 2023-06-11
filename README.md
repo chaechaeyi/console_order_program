@@ -35,6 +35,5 @@ sequenceDiagram
     Order->>OrderItem: 주문 상품 정보 저장
     OrderItem->>Item: 주문 상품 재고 차감
     Note over Item, OrderItem: 재고 부족 시 SoldOutException 발생(오류 발생 시 처음부터 다시 시작)  
-    Item->>User: 주문 상품 및 결재 정보 제공
-    
+    Item->>User: 주문 상품 및 결재 정보 제공    
 ```
