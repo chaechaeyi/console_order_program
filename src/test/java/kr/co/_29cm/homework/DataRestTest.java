@@ -1,4 +1,4 @@
-package kr.co._29cm.homework.controller;
+package kr.co._29cm.homework;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ public class DataRestTest {
 
     @DisplayName("[api] 상품 리스트 조회")
     @Test
-    void givenNothing_wheRequestItems_then() throws Exception {
+    void givenNothing_whenRequestItems_then() throws Exception {
         //Given
         //When & Then
         mvc.perform(get("/api/items"))
