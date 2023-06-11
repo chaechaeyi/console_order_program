@@ -16,6 +16,7 @@ https://github.com/users/chaechaeyi/projects/3/views/4
 * lombok 
 
 ## 데이터 연관관계 (ERD)
+document 패키지 아래 : 주문프로그램.데이터연계도.svg 참고 부탁드립니다.
 
 ## Process
 ### 이용권 만료
