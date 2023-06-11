@@ -1,5 +1,6 @@
 package kr.co._29cm.homework.service;
 
+import jakarta.persistence.LockModeType;
 import kr.co._29cm.homework.constant.OrderStatus;
 import kr.co._29cm.homework.domain.Item;
 import kr.co._29cm.homework.domain.Order;
@@ -9,7 +10,9 @@ import kr.co._29cm.homework.repository.ItemRepository;
 import kr.co._29cm.homework.repository.OrderItemRepository;
 import kr.co._29cm.homework.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -19,7 +22,7 @@ import java.util.List;
  * 주문 service
  */
 @Service
-@Transactional
+@Transactional(isolation = Isolation.SERIALIZABLE)
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;

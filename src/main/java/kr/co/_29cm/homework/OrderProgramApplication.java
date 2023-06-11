@@ -10,6 +10,7 @@ import kr.co._29cm.homework.service.ItemService;
 import kr.co._29cm.homework.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
+@Profile("!test")
 @RequiredArgsConstructor
 public class OrderProgramApplication implements CommandLineRunner {
     Scanner scanner = new Scanner(System.in);
