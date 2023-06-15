@@ -1,4 +1,4 @@
-# homework - 상품 주문 프로그램
+# simple_order_pogram - 상품 주문 프로그램
 
 ## 프로젝트 실행
 HomeworkApplication.java 실행 -> h2 db에 테이블 생성 및 데이터 적제(data.sql 내부 쿼리로 인하여 데이터 삽입)
