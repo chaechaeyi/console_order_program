@@ -19,7 +19,7 @@ import java.util.List;
  * 주문 service
  */
 @Service
-@Transactional(isolation = Isolation.SERIALIZABLE)
+@Transactional(isolation = Isolation.READ_COMMITTED)
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
